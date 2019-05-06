@@ -12,16 +12,10 @@ start = t.time()
 alfa = gP.N * [0]
 beta = gP.N * [0]
 
-#interim coeffs for the 'tau' upper value restriction: tau <= h**2/(2*a) 
-A0 = gP.N * [0]
-A1 = gP.N * [0]
-
-a = len(imp.layers) * [0] #tempConductivity array
-
 h = [c.s[0]/c.n, c.s[1]/c.n] #spatial pitch
-T = gP.N*[c.T_initial]
-T_bulk = []
-tau_ = len(imp.layers) * [0] #interim array needed for 'tau' estimation
+
+T = gP.N*[c.T_initial] #current temperature
+T_bulk = [] #temperature matrix needed for the output plots
 
 time = 0 #total time
 tau = c.tau #time pitch
@@ -73,7 +67,7 @@ while time <= c.TIME:
 a, b = int(len(T_bulk)/gP.N), gP.N  #rows, columns for .reshape
 T_output = np.array(T_bulk)
 T_output = T_output.reshape(a, b)
-timeArray = np.round(np.array(timeArray),2)
+timeArray = np.array(timeArray)
 
 end = t.time()
 timeOfWaiting = round(end - start)

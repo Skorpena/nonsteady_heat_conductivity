@@ -14,7 +14,7 @@ def n(s):
 
 n = n(s) #number of spans, per each layer
 
-tau = 0.1 #time pitch
+tau = 0.5 #time pitch
 
 #thermal emissivity
 alfaInternal = 1600
