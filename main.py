@@ -43,13 +43,13 @@ while time <= c.TIME:
         alfa[i] = ai/(bi - ci * alfa[i-1])
         beta[i] = (ci*beta[i-1]-fi)/(bi-ci*alfa[i-1])
 
-        alfa[c.n-1] = (2*a0*a1*tau*imp.layers[1].heatConduct(T[i])/(2*a0*a1*tau
+        alfa[c.n] = (2*a0*a1*tau*imp.layers[1].heatConduct(T[i])/(2*a0*a1*tau
                       *(imp.layers[1].heatConduct(T[i])
                       +imp.layers[0].heatConduct(T[i])*(1-alfa[c.n-2]))
                       +(h[j]**2)*(a0*imp.layers[1].heatConduct(T[i])
                       +a1*imp.layers[0].heatConduct(T[i]))))
        
-        beta[c.n-1] = ((2*a0*a1*tau*imp.layers[0].heatConduct(T[i])*beta[c.n-2]
+        beta[c.n] = ((2*a0*a1*tau*imp.layers[0].heatConduct(T[i])*beta[c.n-2]
                       +(h[j]**2)*(a0*imp.layers[1].heatConduct(T[i])
                       +a1*imp.layers[0].heatConduct(T[i]))*T[c.n-1])
                       /(2*a0*a1*tau*(imp.layers[1].heatConduct(T[i])
