@@ -9,7 +9,7 @@ print('Choose configuration #, where:\n\
 
 configNumber = int(input('Your configuration is: '))
 layers = [imp.layer0, imp.layer1]
-if configNumber != 0:
+if configNumber:
     layers = [imp.layer1, imp.layer0]
 imp.layers = layers
 
