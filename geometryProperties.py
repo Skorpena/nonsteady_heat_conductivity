@@ -15,6 +15,8 @@ def gridMap():
 gM = gridMap()
 
 if __name__ == '__main__':
+    s = [10, 20]
+    c.s = s
     x = gridMap()
     for i in range(N):
         print(i, x[i])
