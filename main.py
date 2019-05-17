@@ -1,6 +1,5 @@
 import time as t
 import numpy as np
-import implementation as imp
 import heatProperties as hP
 import geometryProperties as gP
 import constants as c
@@ -28,37 +27,37 @@ while time <= c.TIME:
         j = 0 if i < c.n else 1
         
 
-        alfa[0] = 1/(1+imp.layers[0].Bi(T[0],0))
-        beta[0] = imp.layers[0].Bi(T[0],0)*c.T_heat/(1+imp.layers[0].Bi(T[0],0))
+        alfa[0] = 1/(1+hP.layers[0].Bi(T[0],0))
+        beta[0] = hP.layers[0].Bi(T[0],0)*c.T_heat/(1+hP.layers[0].Bi(T[0],0))
 
-        a0 = imp.layers[0].tempConduct(T[i])
-        a1 = imp.layers[1].tempConduct(T[i])
+        a0 = hP.layers[0].tempConduct(T[i])
+        a1 = hP.layers[1].tempConduct(T[i])
 
-        ai = imp.layers[j].heatConduct(T[i])/(h[j]**2)
-        bi = (2*imp.layers[j].heatConduct(T[i])/(h[j]**2)+imp.layers[j].density
-             *imp.layers[j].heatCapac(T[i])/tau)
-        ci = imp.layers[j].heatConduct(T[i])/(h[j]**2)
-        fi = -imp.layers[j].density*imp.layers[j].heatCapac(T[i])*T[i]/tau
+        ai = hP.layers[j].heatConduct(T[i])/(h[j]**2)
+        bi = (2*hP.layers[j].heatConduct(T[i])/(h[j]**2)+hP.layers[j].density
+             *hP.layers[j].heatCapac(T[i])/tau)
+        ci = hP.layers[j].heatConduct(T[i])/(h[j]**2)
+        fi = -hP.layers[j].density*hP.layers[j].heatCapac(T[i])*T[i]/tau
         
         alfa[i] = ai/(bi - ci * alfa[i-1])
         beta[i] = (ci*beta[i-1]-fi)/(bi-ci*alfa[i-1])
 
-        alfa[c.n] = (2*a0*a1*tau*imp.layers[1].heatConduct(T[i])/(2*a0*a1*tau
-                      *(imp.layers[1].heatConduct(T[i])
-                      +imp.layers[0].heatConduct(T[i])*(1-alfa[c.n-2]))
-                      +(h[j]**2)*(a0*imp.layers[1].heatConduct(T[i])
-                      +a1*imp.layers[0].heatConduct(T[i]))))
+        alfa[c.n] = (2*a0*a1*tau*hP.layers[1].heatConduct(T[i])/(2*a0*a1*tau
+                      *(hP.layers[1].heatConduct(T[i])
+                      +hP.layers[0].heatConduct(T[i])*(1-alfa[c.n-2]))
+                      +(h[j]**2)*(a0*hP.layers[1].heatConduct(T[i])
+                      +a1*hP.layers[0].heatConduct(T[i]))))
        
-        beta[c.n] = ((2*a0*a1*tau*imp.layers[0].heatConduct(T[i])*beta[c.n-2]
-                      +(h[j]**2)*(a0*imp.layers[1].heatConduct(T[i])
-                      +a1*imp.layers[0].heatConduct(T[i]))*T[c.n-1])
-                      /(2*a0*a1*tau*(imp.layers[1].heatConduct(T[i])
-                      +imp.layers[0].heatConduct(T[i])*(1-alfa[c.n-2]))
-                      +(h[j]**2)*(a0*imp.layers[1].heatConduct(T[i])
-                      +a1*imp.layers[0].heatConduct(T[i]))))
+        beta[c.n] = ((2*a0*a1*tau*hP.layers[0].heatConduct(T[i])*beta[c.n-2]
+                      +(h[j]**2)*(a0*hP.layers[1].heatConduct(T[i])
+                      +a1*hP.layers[0].heatConduct(T[i]))*T[c.n-1])
+                      /(2*a0*a1*tau*(hP.layers[1].heatConduct(T[i])
+                      +hP.layers[0].heatConduct(T[i])*(1-alfa[c.n-2]))
+                      +(h[j]**2)*(a0*hP.layers[1].heatConduct(T[i])
+                      +a1*hP.layers[0].heatConduct(T[i]))))
         
-        T[gP.N-1] = ((imp.layers[1].Bi(T[gP.N-1],1)*c.T_ambient + T[gP.N-2])
-                    /(1-imp.layers[1].Bi(T[gP.N-1],1)))
+        T[gP.N-1] = ((hP.layers[1].Bi(T[gP.N-1],1)*c.T_ambient + T[gP.N-2])
+                    /(1-hP.layers[1].Bi(T[gP.N-1],1)))
 
     for i in range(gP.N-2,-1,-1):
         T[i] = alfa[i]*T[i+1]+beta[i]
