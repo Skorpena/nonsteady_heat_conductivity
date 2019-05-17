@@ -103,9 +103,10 @@ class heatProperties:
         tempConduct = self.heatConduct(T)/(self.density*self.heatCapac(T))
         return tempConduct
 
+iron = heatProperties('Iron', 7680)
+copper = heatProperties('Copper', 8933)
 
-if __name__ == '__main__':
-    b = heatProperties('Copper', 8933)
-    d = heatProperties('Iron', 7680)
-    for i in range(100,900,50):
-        print(i, b.heatCapac(i), d.heatCapac(i))
+layer0 = iron
+layer1 = copper
+
+layers = []
